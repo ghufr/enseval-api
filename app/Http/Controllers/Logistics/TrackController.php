@@ -38,6 +38,10 @@ class TrackController extends Controller
     public function update(Request $req, $id)
     {
         $result = Track::find($id);
+
+        if (!$result) {
+            return response()->json(['error' => true]);
+        }
         $result->temp = $req->temp;
         $result->fuel_capacity = $req->fuel_capacity;
         $result->speed = $req->speed;
