@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Logistics;
 
+use App\Http\Controllers\Controller;
 use App\Models\penjemputan;
 use Illuminate\Support\Facades\DB;
 
