@@ -8,7 +8,7 @@
 
 	composer install
 
-	php artisan migrate --path=/database/migrations/*
+	php artisan migrate
 
 	php artisan serve
 ```
