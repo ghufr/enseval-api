@@ -13,7 +13,6 @@ class Track extends Model
         "temp",
         "fuel_capacity",
         "speed",
-        // "distance_from_arrival",
         "loc_lat",
         "loc_lng",
         "delivery_id",

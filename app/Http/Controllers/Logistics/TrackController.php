@@ -8,13 +8,24 @@ use Illuminate\Http\Request;
 
 class TrackController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *      path="/logistics/track",
+     *      description="Get all tracks",
+     *      @OA\Response(
+     *          response="default",
+     *          description="Response"
+     *      )
+     * )
+     */
     public function find()
     {
         $result = Track::all();
         return response()->json($result);
     }
 
-    public function findOne(Request $req, $id)
+    public function findOne($id)
     {
         $result = Track::find($id);
 
@@ -40,7 +51,7 @@ class TrackController extends Controller
         $result = Track::find($id);
 
         if (!$result) {
-            return response()->json(['error' => true]);
+            return response()->json(['success' => false]);
         }
         $result->temp = $req->temp;
         $result->fuel_capacity = $req->fuel_capacity;
@@ -49,11 +60,12 @@ class TrackController extends Controller
         $result->loc_lng = $req->loc_lng;
         $result->delivery_id = $req->delivery_id;
         $result->status = 'running';
+        $result->save();
 
         return response()->json($result);
     }
 
-    public function delete(Request $req, $id)
+    public function delete($id)
     {
         $result = Track::destroy($id);
         return response()->json(['success' => $result > 0]);
