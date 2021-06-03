@@ -1,7 +1,6 @@
 version: '3'
 services:
 
-  #PHP Service
   app:
     build:
       context: .
@@ -11,22 +10,20 @@ services:
     restart: unless-stopped
     tty: true
     environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
+      SERVICE_NAME: enseval_app
+    working_dir: /var/www/html
 		ports:
       - "9000:9000"
 		env_file:
 			- .env
     volumes:
-      - ./:/var/www
-      # - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./:/var/www/html
     networks:
       - app-network
 
   #MySQL Service
   db:
-    image: mysql:5.7.22
+    image: mysql:5.7
     container_name: db
     restart: unless-stopped
     tty: true
@@ -36,8 +33,7 @@ services:
       MYSQL_DATABASE: enseval
 	  	MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      SERVICE_NAME: enseval_mysql
     volumes:
       - dbdata:/var/lib/mysql/
       # - ./mysql/my.cnf:/etc/mysql/my.cnf
