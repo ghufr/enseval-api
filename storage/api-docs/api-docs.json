@@ -81,6 +81,16 @@
                 ],
                 "description": "Create Driver",
                 "operationId": "createDriver",
+                "requestBody": {
+                    "request": "Driver",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Driver"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -139,39 +149,33 @@
                     }
                 }
             },
-            "put": {
-                "tags": [
-                    "Track"
-                ],
-                "description": "Update Track",
-                "operationId": "updateTrack",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "Track"
                 ],
                 "description": "Create new Track",
                 "operationId": "createTrack",
-                "responses": {
-                    "200": {
-                        "description": "Success"
+                "requestBody": {
+                    "request": "Track",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Track"
+                            }
+                        }
                     }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Track"
-                ],
-                "description": "Delete Track",
-                "operationId": "deleteTrack",
+                },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Track"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -188,6 +192,247 @@
                         "description": "Success"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Update Track",
+                "operationId": "updateTrack",
+                "requestBody": {
+                    "request": "Track",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Track"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Track"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Delete Track",
+                "operationId": "deleteTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/vehicle": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Get all Vehicle",
+                "operationId": "findVehicle",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Create Vehicle",
+                "operationId": "createVehicle",
+                "requestBody": {
+                    "request": "Vehicle",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Vehicle"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/vehicle/{id}": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Get One Vehicle",
+                "operationId": "findOneVehicle",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Update Track",
+                "operationId": "updateTrack",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "request": "Vehicle",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Vehicle"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Vehicle"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Delete Vehicle",
+                "operationId": "deleteVehicle",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Driver": {
+                "title": "Driver",
+                "description": "Driver Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "type": "integer",
+                        "example": "GHF"
+                    },
+                    "phone": {
+                        "type": "integer",
+                        "example": "0881232323"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": "24"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    }
+                },
+                "type": "object"
+            },
+            "Track": {
+                "title": "Track",
+                "description": "Track Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "temp": {
+                        "type": "integer",
+                        "example": "-20.21"
+                    },
+                    "fuel_capacity": {
+                        "type": "integer",
+                        "example": "100"
+                    },
+                    "speed": {
+                        "type": "integer",
+                        "example": "120"
+                    },
+                    "loc_lat": {
+                        "type": "integer",
+                        "example": "-6.9230233"
+                    },
+                    "loc_lng": {
+                        "type": "integer",
+                        "example": "1.3230233"
+                    },
+                    "delivery_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "active"
+                    }
+                },
+                "type": "object"
+            },
+            "Vehicle": {
+                "title": "Vehicle",
+                "description": "Vehicle Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "A0123"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "C"
+                    },
+                    "fuel_capacity": {
+                        "type": "integer",
+                        "example": "100"
+                    },
+                    "fuel_efficiency": {
+                        "type": "string",
+                        "example": "10"
+                    },
+                    "cargo_area": {
+                        "type": "integer",
+                        "example": "2000"
+                    }
+                },
+                "type": "object"
             }
         }
     },

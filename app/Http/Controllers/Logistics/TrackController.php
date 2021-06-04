@@ -64,9 +64,15 @@ class TrackController extends Controller
      *      tags={"Track"},
      *      description="Create new Track",
      *      operationId="createTrack",
+     *      @OA\RequestBody(
+     *          request="Track",
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/Track")
+     *      ),
      *      @OA\Response(
      *          response="200",
-     *          description="Success"
+     *          description="Success",
+     *          @OA\JsonContent(ref="#/components/schemas/Track")
      *      )
      * )
      */
@@ -79,7 +85,7 @@ class TrackController extends Controller
             "loc_lat" => $req->loc_lat,
             "loc_lng" => $req->loc_lng,
             "delivery_id" => $req->delivery_id,
-            "status" => 'running'
+            "status" => 'active'
         ]);
         return response()->json($result);
     }
@@ -88,13 +94,18 @@ class TrackController extends Controller
 
     /**
      * @OA\Put(
-     *      path="/api/logistics/track",
+     *      path="/api/logistics/track/{id}",
      *      tags={"Track"},
      *      description="Update Track",
      *      operationId="updateTrack",
+     *      @OA\RequestBody(
+     *          request="Track",
+     *          @OA\JsonContent(ref="#/components/schemas/Track")
+     *      ),
      *      @OA\Response(
      *          response="200",
-     *          description="Success"
+     *          description="Success",
+     *          @OA\JsonContent(ref="#/components/schemas/Track")
      *      )
      * )
      */
@@ -118,7 +129,7 @@ class TrackController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/api/logistics/track",
+     *      path="/api/logistics/track/{id}",
      *      tags={"Track"},
      *      description="Delete Track",
      *      operationId="deleteTrack",

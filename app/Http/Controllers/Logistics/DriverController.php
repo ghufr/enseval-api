@@ -65,6 +65,10 @@ class DriverController extends Controller
      *      tags={"Driver"},
      *      operationId="createDriver",
      *      description="Create Driver",
+     *      @OA\RequestBody(
+     *          request="Driver",
+     *          @OA\JsonContent(ref="#/components/schemas/Driver")
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Success"
