@@ -6,6 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 
+
+/**
+ * @OA\Tag(
+ *  name="Vehicle",
+ *  description="API Endpoint Vehicle"
+ * 	)
+ */
+
 class VehicleController extends Controller
 {
     public function find()
@@ -18,7 +26,7 @@ class VehicleController extends Controller
     {
         $result = Vehicle::find($id);
 
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
@@ -46,7 +54,7 @@ class VehicleController extends Controller
     public function update(Request $req, $id)
     {
         $result = Vehicle::find($id);
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         // TODO: Edit
 

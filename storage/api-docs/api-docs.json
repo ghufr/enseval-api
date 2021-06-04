@@ -10,18 +10,237 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/": {
+        "/api/logistics/delivery": {
             "get": {
-                "description": "Get all tracks",
-                "operationId": "App\\Http\\Controllers\\Logistics\\TrackController::find",
+                "tags": [
+                    "Delivery"
+                ],
+                "description": "Get all Delivery",
+                "operationId": "findDelivery",
                 "responses": {
-                    "default": {
-                        "description": "Response"
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Delivery"
+                ],
+                "description": "Create Delivery",
+                "operationId": "createDelivery",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/delivery/{id}": {
+            "get": {
+                "tags": [
+                    "Delivery"
+                ],
+                "description": "Get One Delivery",
+                "operationId": "findOneDelivery",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Delivery"
+                ],
+                "description": "Delete Delivery",
+                "operationId": "deleteDelivery",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/driver": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "description": "Get all driver",
+                "operationId": "findDriver",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "description": "Create Driver",
+                "operationId": "createDriver",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Driver"
+                ],
+                "description": "Delete Driver",
+                "operationId": "deleteDriver",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/driver/{id}": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "description": "Get one driver",
+                "operationId": "findOneDriver",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Driver"
+                ],
+                "description": "Update Driver",
+                "operationId": "updateDriver",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/track": {
+            "get": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Get all tracks",
+                "operationId": "findTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Update Track",
+                "operationId": "updateTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Create new Track",
+                "operationId": "createTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Delete Track",
+                "operationId": "deleteTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/logistics/track/{id}": {
+            "get": {
+                "tags": [
+                    "Track"
+                ],
+                "description": "Get all tracks",
+                "operationId": "findOneTrack",
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 }
             }
         }
     },
+    "tags": [
+        {
+            "name": "Expense",
+            "description": "API Endpoint Expense"
+        },
+        {
+            "name": "Income",
+            "description": "API Endpoint Income"
+        },
+        {
+            "name": "Report",
+            "description": "API Endpoint Report"
+        },
+        {
+            "name": "Delivery",
+            "description": "API Endpoint Delivery"
+        },
+        {
+            "name": "Driver",
+            "description": "API Endpoint Driver"
+        },
+        {
+            "name": "Track",
+            "description": "API Endpoint Delivery Tracking"
+        },
+        {
+            "name": "Vehicle",
+            "description": "API Endpoint Vehicle"
+        },
+        {
+            "name": "Product",
+            "description": "API Endpoint Product"
+        },
+        {
+            "name": "Inbound",
+            "description": "API Endpoint Inbound"
+        },
+        {
+            "name": "Outbound",
+            "description": "API Endpoint Outbound"
+        },
+        {
+            "name": "Stock",
+            "description": "API Endpoint Stock"
+        },
+        {
+            "name": "Warehouse",
+            "description": "API Endpoint Warehouse"
+        }
+    ],
     "security": [
         []
     ]

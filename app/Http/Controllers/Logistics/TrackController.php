@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logistics;
 
 use App\Http\Controllers\Controller;
 use App\Models\Logistics\Track;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 
 
@@ -20,6 +21,7 @@ class TrackController extends Controller
     /**
      * @OA\Get(
      *      path="/api/logistics/track",
+     *      tags={"Track"},
      *      operationId="findTrack",
      *      description="Get all tracks",
      *      @OA\Response(
@@ -31,13 +33,14 @@ class TrackController extends Controller
     public function find()
     {
         $result = Track::all();
-        if (count($result) <= 0) return response(404)->json(["error" => true]);
+        if (count($result) <= 0) return response()->json(["error" => true]);
         return response()->json($result);
     }
 
     /**
      * @OA\Get(
      *      path="/api/logistics/track/{id}",
+     *      tags={"Track"},
      *      description="Get all tracks",
      *      operationId="findOneTrack",
      *      @OA\Response(
@@ -50,7 +53,7 @@ class TrackController extends Controller
     {
         $result = Track::find($id);
 
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
@@ -58,12 +61,9 @@ class TrackController extends Controller
     /**
      * @OA\Post(
      *      path="/api/logistics/track",
+     *      tags={"Track"},
      *      description="Create new Track",
      *      operationId="createTrack",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdateProjectRequest")
-     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Success"
@@ -89,6 +89,7 @@ class TrackController extends Controller
     /**
      * @OA\Put(
      *      path="/api/logistics/track",
+     *      tags={"Track"},
      *      description="Update Track",
      *      operationId="updateTrack",
      *      @OA\Response(
@@ -114,6 +115,19 @@ class TrackController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * @OA\Delete(
+     *      path="/api/logistics/track",
+     *      tags={"Track"},
+     *      description="Delete Track",
+     *      operationId="deleteTrack",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success"
+     *      )
+     * )
+     */
 
     public function delete($id)
     {

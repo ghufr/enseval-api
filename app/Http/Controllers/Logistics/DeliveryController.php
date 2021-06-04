@@ -6,17 +6,50 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Logistics\Delivery;
 
+
+/**
+ * @OA\Tag(
+ *  name="Delivery",
+ *  description="API Endpoint Delivery"
+ * 	)
+ */
+
 class DeliveryController extends Controller
 {
 
+    /**
+     * @OA\Get(
+     *      path="/api/logistics/delivery",
+     *      tags={"Delivery"},
+     *      operationId="findDelivery",
+     *      description="Get all Delivery",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success"
+     *      )
+     * )
+     *
+     */
     public function find()
     {
         $result = Delivery::all();
-        if (count($result) <= 0) return response(404)->json(["error" => true]);
+        if (count($result) <= 0) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/logistics/delivery/{id}",
+     *      tags={"Delivery"},
+     *      operationId="findOneDelivery",
+     *      description="Get One Delivery",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success"
+     *      )
+     * )
+     */
     public function findOne($id)
     {
         $result = Delivery::find($id);
@@ -26,6 +59,18 @@ class DeliveryController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/logistics/delivery",
+     *      tags={"Delivery"},
+     *      operationId="createDelivery",
+     *      description="Create Delivery",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success"
+     *      )
+     * )
+     */
     public function create(Request $req)
     {
         $delivery = new Delivery();
@@ -43,6 +88,19 @@ class DeliveryController extends Controller
         if (!$save) return response(400)->json(['success' => false]);
         return response()->json(['success' => true]);
     }
+
+    /**
+     * @OA\Delete(
+     *      path="/api/logistics/delivery/{id}",
+     *      tags={"Delivery"},
+     *      operationId="deleteDelivery",
+     *      description="Delete Delivery",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success"
+     *      )
+     * )
+     */
 
     public function delete($id)
     {

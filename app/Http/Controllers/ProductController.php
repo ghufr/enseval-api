@@ -6,6 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
+/**
+ * @OA\Tag(
+ *  name="Product",
+ *  description="API Endpoint Product"
+ * 	)
+ */
 class ProductController extends Controller
 {
     public function find()
@@ -18,7 +24,7 @@ class ProductController extends Controller
     {
         $result = Product::find($id);
 
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
@@ -44,7 +50,7 @@ class ProductController extends Controller
     public function update(Request $req, $id)
     {
         $result = Product::find($id);
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         // TODO: Edit
 
