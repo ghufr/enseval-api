@@ -24,6 +24,7 @@ class CreateDeliveryTable extends Migration
             $table->dateTime('date_pickup');
             $table->float('fuel_consumption');
             $table->integer('cost');
+            $table->timestamps();
         });
     }
 

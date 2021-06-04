@@ -19,6 +19,7 @@ class CreateDriverTable extends Migration
             $table->integer('phone');
             $table->integer('age');
             $table->string('status');
+            $table->timestamps();
         });
     }
 

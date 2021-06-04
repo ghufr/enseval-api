@@ -20,6 +20,7 @@ class CreateOutboundTable extends Migration
             $table->foreign('warehouse_id')->references('warehouse_id')->on('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
             $table->dateTime('date_outbound');
             $table->integer('cost');
+            $table->timestamps();
         });
     }
 

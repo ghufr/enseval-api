@@ -18,6 +18,7 @@ class CreateWarehouseTable extends Migration
             $table->string('location');
             $table->integer('capacity');
             $table->integer('volume');
+            $table->timestamps();
         });
     }
 

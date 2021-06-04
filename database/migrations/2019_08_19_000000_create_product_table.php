@@ -19,6 +19,7 @@ class CreateProductTable extends Migration
             $table->integer('weight');
             $table->integer('price');
             $table->dateTime('exp_date');
+            $table->timestamps();
         });
     }
 

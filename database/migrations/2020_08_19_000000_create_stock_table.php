@@ -19,6 +19,7 @@ class CreateStockTable extends Migration
             $table->unsignedBigInteger('warehouse_id');
             $table->foreign('warehouse_id')->references('warehouse_id')->on('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('quantity');
+            $table->timestamps();
         });
     }
 

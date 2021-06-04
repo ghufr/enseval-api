@@ -20,6 +20,7 @@ class CreateVehicleTable extends Migration
             $table->float('fuel_capacity');
             $table->string('brand');
             $table->string('status');
+            $table->timestamps();
         });
     }
 

@@ -16,10 +16,12 @@ class CreateTransactionTable extends Migration
         Schema::create('income', function (Blueprint $table) {
             $table->integer('amount');
             $table->string('note');
+            $table->timestamps();
         });
         Schema::create('expense', function (Blueprint $table) {
             $table->integer('amount');
             $table->string('note');
+            $table->timestamps();
         });
     }
 
