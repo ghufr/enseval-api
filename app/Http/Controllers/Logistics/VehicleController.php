@@ -21,7 +21,7 @@ class VehicleController extends Controller
 
     public function create(Request $request)
     {
-        $vehicle = new Vehicle;
+        $vehicle = new Vehicle();
         $vehicle->type = $request->type;
         $vehicle->capacity = $request->capacity;
         $vehicle->status = $request->status;

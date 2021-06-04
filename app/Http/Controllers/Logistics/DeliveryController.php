@@ -22,7 +22,7 @@ class DeliveryController extends Controller
 
     public function create(Request $req)
     {
-        $delivery = new Delivery;
+        $delivery = new Delivery();
         $delivery->driver_id = $req->driver_id;
         $delivery->product_id = $req->product_id;
         $delivery->vehicle_id = $req->vehicle_id;

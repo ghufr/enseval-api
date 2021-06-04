@@ -11,20 +11,20 @@ class DriverController extends Controller
 
     public function find()
     {
-        $result = driver::all();
+        $result = Driver::all();
         return response()->json($result);
     }
 
     public function findOne($id)
     {
-        $result = driver::findOne($id);
+        $result = Driver::findOne($id);
         return response()->json($result);
     }
 
 
     public function create(Request $req)
     {
-        $driver = new Driver;
+        $driver = new Driver();
         $driver->name = $req->name;
         $driver->phone = $req->phone;
         $driver->age = $req->age;
