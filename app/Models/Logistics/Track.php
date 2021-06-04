@@ -5,6 +5,15 @@ namespace App\Models\Logistics;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
+/**
+ *
+ * @OA\Schema(
+ *      description="Track Model",
+ *      title="Track"
+ *
+ * )
+ */
 class Track extends Model
 {
     use HasFactory;

@@ -74,15 +74,15 @@ class DriverController extends Controller
 
     public function create(Request $req)
     {
-        $driver = new Driver();
-        $driver->name = $req->name;
-        $driver->phone = $req->phone;
-        $driver->age = $req->age;
-        $driver->status = $req->status;
-        $save = $driver->save();
+        $result = Driver::create([
+            'name' => $req->name,
+            'phone' => $req->phone,
+            'age' => $req->age,
+            'status' => $req->status,
 
-        if (!$save) return response()->json(['success' => false]);
-        return response()->json(['success' => true]);
+        ]);
+        if (!$result) return response()->json(['error' => true]);
+        return response()->json($result);
     }
 
     /**

@@ -73,20 +73,23 @@ class DeliveryController extends Controller
      */
     public function create(Request $req)
     {
-        $delivery = new Delivery();
-        $delivery->driver_id = $req->driver_id;
-        $delivery->product_id = $req->product_id;
-        $delivery->vehicle_id = $req->vehicle_id;
-        $delivery->delivery_type = $req->delivery_type;
-        $delivery->destination_location = $req->destination_location;
-        $delivery->pickup_location = $req->pickup_location;
-        $delivery->date_pickup = $req->date_pickup;
-        $delivery->fuel_consumption = $req->fuel_consumption;
-        $delivery->cost = $req->cost;
-        $save = $delivery->save();
+        $result = Delivery::create([
+            "driver_id" => $req->driver,
+            "driver_id" => $req->driver_id,
+            "product_id" => $req->product_id,
+            "vehicle_id" => $req->vehicle_id,
+            "delivery_type" => $req->delivery_type,
+            "destination_location" => $req->destination_location,
+            "pickup_location" => $req->pickup_location,
+            "date_pickup" => $req->date_pickup,
+            "fuel_consumption" => $req->fuel_consumption,
+            "cost" => $req->cost
+        ]);
 
-        if (!$save) return response(400)->json(['success' => false]);
-        return response()->json(['success' => true]);
+
+
+        if (!$result) return response(400)->json(['success' => false]);
+        return response()->json($result);
     }
 
     /**
