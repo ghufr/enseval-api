@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Logistics;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\vehicle;
+use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -16,7 +16,11 @@ class VehicleController extends Controller
 
     public function findOne($id)
     {
-        // TODO: FindOne
+        $result = Vehicle::find($id);
+
+        if (!$result) return response(404)->json(["error" => true]);
+
+        return response()->json($result);
     }
 
     public function create(Request $request)
@@ -35,10 +39,17 @@ class VehicleController extends Controller
 
     public function delete($id)
     {
-        // TODO: Delete
+        $result = Vehicle::destroy($id);
+        return response()->json(['error' => $result == 0]);
     }
+
     public function update(Request $req, $id)
     {
-        // TODO: Update
+        $result = Vehicle::find($id);
+        if (!$result) return response(404)->json(["error" => true]);
+
+        // TODO: Edit
+
+        return response()->json($result);
     }
 }

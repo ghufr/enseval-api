@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Finance;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+class Transaction extends Model
 {
     use HasFactory;
-    protected $table = "driver";
     protected $guarded = [];
     protected $fillable = [
-        'name',
-        'phone',
-        'age',
-        'status'
+        'amount',
+        'note',
+        'tag',
+        'items',
     ];
 }

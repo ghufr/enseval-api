@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class vehicle extends Model
 {
-	use HasFactory;
+    use HasFactory;
 
-	protected $table = "vehicle";
-	protected $guarded = [];
-	protected $fillable = [
-		'name',
-		'type',
-		'fuel_capacity',
-		'fuel_efficiency',
-		'cargo_area'
-	];
+    protected $table = "vehicle";
+    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'type',
+        'fuel_capacity',
+        'fuel_efficiency',
+        'cargo_area'
+    ];
 }

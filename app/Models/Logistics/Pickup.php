@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Logistics;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+class Pickup extends Model
 {
     use HasFactory;
-    protected $table = "driver";
+    protected $table = "pickup";
     protected $guarded = [];
     protected $fillable = [
-        'name',
-        'phone',
-        'age',
-        'status'
+        'location',
+        'date',
+        'address',
     ];
 }

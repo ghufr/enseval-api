@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Logistics;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Delivery;
+use App\Models\Logistics\Delivery;
 
 class DeliveryController extends Controller
 {
@@ -12,12 +12,18 @@ class DeliveryController extends Controller
     public function find()
     {
         $result = Delivery::all();
+        if (count($result) <= 0) return response(404)->json(["error" => true]);
+
         return response()->json($result);
     }
 
     public function findOne($id)
     {
-        // TODO: FindOne
+        $result = Delivery::find($id);
+
+        if (!$result) return response(404)->json(["error" => true]);
+
+        return response()->json($result);
     }
 
     public function create(Request $req)
@@ -40,11 +46,17 @@ class DeliveryController extends Controller
 
     public function delete($id)
     {
-        // TODO: Delete
+        $result = Delivery::destroy($id);
+        return response()->json(['error' => $result == 0]);
     }
     public function update(Request $req, $id)
     {
-        // TODO: Update
+        $result = Delivery::find($id);
+        if (!$result) return response(404)->json(["error" => true]);
+
+        // TODO: Edit
+
+        return response()->json($result);
     }
 
 

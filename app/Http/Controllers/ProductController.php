@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Logistics;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +16,11 @@ class ProductController extends Controller
 
     public function findOne($id)
     {
-        // TODO: FindOne
+        $result = Product::find($id);
+
+        if (!$result) return response(404)->json(["error" => true]);
+
+        return response()->json($result);
     }
 
     public function create(Request $request)
@@ -34,10 +38,16 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        // TODO: Delete
+        $result = Product::destroy($id);
+        return response()->json(['error' => $result == 0]);
     }
     public function update(Request $req, $id)
     {
-        // TODO: Update
+        $result = Product::find($id);
+        if (!$result) return response(404)->json(["error" => true]);
+
+        // TODO: Edit
+
+        return response()->json($result);
     }
 }
