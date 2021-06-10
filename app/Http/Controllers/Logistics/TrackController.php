@@ -33,7 +33,7 @@ class TrackController extends Controller
     public function find()
     {
         $result = Track::all();
-        if (count($result) <= 0) return response()->json(["error" => true]);
+        if (count($result) <= 0) return response()->json(["error" => true, "message" => "Not found"]);
         return response()->json($result);
     }
 
@@ -53,7 +53,7 @@ class TrackController extends Controller
     {
         $result = Track::find($id);
 
-        if (!$result) return response()->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true, "message" => "Not found"]);
 
         return response()->json($result);
     }
@@ -78,9 +78,9 @@ class TrackController extends Controller
      */
     public function create(Request $req)
     {
-        $delivery = Delivery::findOne($req->delivery_id);
+        $delivery = Delivery::find($req->delivery_id);
 
-        if (empty($delivery)) return response()->json(["error" => true]);
+        if (empty($delivery)) return response()->json(["error" => true, "message" => "Delivery " . $req->delivery_id . " not found"]);
 
         $result = Track::create([
             "temp" => $req->temp,
@@ -119,7 +119,7 @@ class TrackController extends Controller
 
         if (!$result) return response()->json(['error' => true]);
 
-        $result->update($req->all());
+        $result->update($req->except(['delivery_id']));
 
         return response()->json($result);
     }
