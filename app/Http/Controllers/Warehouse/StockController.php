@@ -26,10 +26,11 @@ class StockController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Stock::findOne($id);
+		$result = Stock::find($id);
 		return response()->json($result);
 	}
 
+	// TODO: No stock create
 	public function create(request $req)
 	{
 		// TODO: Find warehouse, save as stock location

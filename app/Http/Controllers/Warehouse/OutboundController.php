@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Warehouse\Outbound;
-
+use App\Models\Warehouse\Warehouse;
 
 /**
  * @OA\Tag(
@@ -25,21 +26,22 @@ class OutboundController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Outbound::findOne($id);
+		$result = Outbound::find($id);
 		return response()->json($result);
 	}
 
-	public function create(request $req)
+	public function create(Request $req)
 	{
+
+		$product = Product::find($req->product_id);
+
+		$warehouse = Warehouse::find($req->warehouse_id);
+
+		if (!$product) return response()->json(["error" => true, "message" => "Product " . $req->product_id . " not found"]);
+		if (!$warehouse) return response()->json(["error" => true, "message" => "Warehouse " . $req->warehouse_id . " not found"]);
+
 		$result = Outbound::create(
-			[
-				"outbound_id" => $req->outbound_id,
-				"warehouse_id" => $req->warehouse_id,
-				"vehicle_id" => $req->vehicle_id,
-				"out_date" => $req->out_date,
-				"address" => $req->address,
-				"quantity_out" => $req->quantity_out
-			]
+			$req->all()
 		);
 		return response()->json($result);
 	}

@@ -24,7 +24,7 @@ class WarehouseController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Warehouse::findOne($id);
+		$result = Warehouse::find($id);
 		return response()->json($result);
 	}
 

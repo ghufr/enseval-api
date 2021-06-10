@@ -25,7 +25,7 @@ class ExpenseController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Expense::findOne($id);
+		$result = Expense::find($id);
 		return response()->json($result);
 	}
 

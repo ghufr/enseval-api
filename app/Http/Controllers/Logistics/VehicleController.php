@@ -74,15 +74,7 @@ class VehicleController extends Controller
 
     public function create(Request $req)
     {
-        $result = Vehicle::create([
-            "type" => $req->type,
-            "capacity" => $req->capacity,
-            "status" => $req->status,
-            "fuel_capacity" => $req->fuel_capacity,
-            "brand" => $req->brand
-
-        ]);
-
+        $result = Vehicle::create($req->all());
 
         if (!$result) return response()->json(['error' => true]);
         return response()->json($result);

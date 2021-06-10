@@ -19,7 +19,7 @@ class MaintenanceController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Maintenance::findOne($id);
+		$result = Maintenance::find($id);
 		return response()->json($result);
 	}
 

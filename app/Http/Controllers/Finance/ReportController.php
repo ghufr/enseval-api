@@ -26,7 +26,7 @@ class ReportController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Report::findOne($id);
+		$result = Report::find($id);
 		return response()->json($result);
 	}
 

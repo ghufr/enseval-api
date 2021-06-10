@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function findOne($id)
     {
-        $result = Product::findOne($id);
+        $result = Product::find($id);
 
         if (!$result) return response()->json(["error" => true]);
 

@@ -19,11 +19,11 @@ class Outbound extends Model
 
     public function warehouse()
     {
-        return $this->belongsToMany(Warehouse::class);
+        return $this->belongsTo(Warehouse::class);
     }
 
     public function product()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

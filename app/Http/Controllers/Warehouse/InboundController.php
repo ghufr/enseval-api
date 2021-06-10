@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Warehouse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Warehouse\Inbound;
+use App\Models\Product;
+use App\Models\Warehouse\Warehouse;
 
 /**
  * @OA\Tag(
@@ -26,17 +28,21 @@ class InboundController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Inbound::findOne($id);
+		$result = Inbound::find($id);
 		return response()->json($result);
 	}
 
 	public function create(Request $req)
 	{
 
-		// TODO: Find product
-		// $prouct = Product::find()
-		$result = Inbound::create([...$req->all()]);
-		// $warehouse = Warehouse::join('warehouse', 'warehouse.id', '=', 'results.warehouse_id')->select('warehouses.warehouse_id')->where('results.warehouse_id', '=', $id)->get();
+		$product = Product::find($req->product_id);
+
+		$warehouse = Warehouse::find($req->warehouse_id);
+
+		if (!$product) return response()->json(["error" => true, "message" => "Product " . $req->product_id . " not found"]);
+		if (!$warehouse) return response()->json(["error" => true, "message" => "Warehouse " . $req->warehouse_id . " not found"]);
+
+		$result = Inbound::create($req->all());
 
 		return response()->json($result);
 	}

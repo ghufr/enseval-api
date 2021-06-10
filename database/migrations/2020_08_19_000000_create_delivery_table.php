@@ -23,10 +23,10 @@ class CreateDeliveryTable extends Migration
             $table->float('fuel_consumption');
             $table->integer('cost');
 
-            $table->foreignId('source_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
-            $table->foreignId('dest_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
+            // $table->foreignId('source_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
+            // $table->foreignId('dest_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
             $table->foreignId('driver_id')->constrained('driver')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
+            // $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('vehicle_id')->constrained('vehicle')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

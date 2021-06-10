@@ -26,7 +26,7 @@ class IncomeController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Income::findOne($id);
+		$result = Income::find($id);
 		return response()->json($result);
 	}
 
