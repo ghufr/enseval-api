@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Logistics\Delivery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,7 +32,12 @@ class Vehicle extends Model
         'name',
         'type',
         'fuel_capacity',
-        'fuel_efficiency',
-        'cargo_area'
+        'capacity',
+        'brand',
+        'status'
     ];
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Logistics;
 
 use App\Http\Controllers\Controller;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use App\Models\Logistics\Delivery;
-
+use App\Models\Vehicle;
 
 /**
  * @OA\Tag(
@@ -53,8 +54,12 @@ class DeliveryController extends Controller
     public function findOne($id)
     {
         $result = Delivery::find($id);
+        $result->vehicle = $result->vehicle()->get()->first();
+        $result->driver = $result->driver()->get()->first();
 
-        if (!$result) return response()->json(["error" => true]);
+        // var_dump($result->vehicle);
+
+        if (!$result) return response()->json(["error" => true, "message" => "Not found"]);
 
         return response()->json($result);
     }
@@ -73,15 +78,17 @@ class DeliveryController extends Controller
      */
     public function create(Request $req)
     {
-        // TODO: Find driver
-        // Find: Product
-        // Find: Vehicle
-        // Location == Warehouse
-        // TODO: Calculate distance, cost
+        $driver = Driver::find($req->driver_id);
+        $vehicle = Vehicle::find($req->vehicle_id);
+
+
+        if (empty($driver)) return response()->json(['error' => true, "message" => "Driver " . $req->driver_id . " not found"]);
+
+        if (empty($vehicle)) return response()->json(['error' => true, "message" => "Vehicle " . $req->vehicle_id . " not found"]);
 
         $result = Delivery::create($req->all());
 
-        if (!$result) return response()->json(['success' => false]);
+        if (!$result) return response()->json(['error' => true]);
         return response()->json($result);
     }
 
