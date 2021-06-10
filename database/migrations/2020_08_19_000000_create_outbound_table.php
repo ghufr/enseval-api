@@ -14,12 +14,11 @@ class CreateOutboundTable extends Migration
     public function up()
     {
         Schema::create('outbound', function (Blueprint $table) {
-            $table->bigIncrements('outbound_id');
-            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedBigInteger('warehouse_id');
-            $table->foreign('warehouse_id')->references('warehouse_id')->on('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->dateTime('date_outbound');
+            $table->id();
             $table->integer('cost');
+            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('warehouse_id')->contrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
+            // $table->dateTime('date_outbound');
             $table->timestamps();
         });
     }

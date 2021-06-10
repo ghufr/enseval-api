@@ -22,24 +22,24 @@ class ProductController extends Controller
 
     public function findOne($id)
     {
-        $result = Product::find($id);
+        $result = Product::findOne($id);
 
         if (!$result) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
 
-    public function create(Request $request)
+    public function create(Request $req)
     {
-        $product = new Product;
-        $product->name = $request->name;
-        $product->weight = $request->weight;
-        $product->price = $request->price;
-        $product->exp_date = $request->exp_date;
-        $save = $product->save();
+        $result = Product::create([
+            "name" => $req->name,
+            "weight" => $req->weight,
+            "price" => $req->price,
+            "exp_date" => $req->exp_date
+        ]);
 
-        if (!$save) return response()->json(['success' => false]);
-        return response()->json(['success' => true]);
+        if (!$result) return response()->json(['error' => true]);
+        return response()->json($result);
     }
 
     public function delete($id)
@@ -47,12 +47,13 @@ class ProductController extends Controller
         $result = Product::destroy($id);
         return response()->json(['error' => $result == 0]);
     }
+
     public function update(Request $req, $id)
     {
         $result = Product::find($id);
         if (!$result) return response()->json(["error" => true]);
 
-        // TODO: Edit
+        $result->update($req->all());
 
         return response()->json($result);
     }

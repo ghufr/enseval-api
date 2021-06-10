@@ -54,7 +54,7 @@ class DeliveryController extends Controller
     {
         $result = Delivery::find($id);
 
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
         return response()->json($result);
     }
@@ -73,22 +73,15 @@ class DeliveryController extends Controller
      */
     public function create(Request $req)
     {
-        $result = Delivery::create([
-            "driver_id" => $req->driver,
-            "driver_id" => $req->driver_id,
-            "product_id" => $req->product_id,
-            "vehicle_id" => $req->vehicle_id,
-            "delivery_type" => $req->delivery_type,
-            "destination_location" => $req->destination_location,
-            "pickup_location" => $req->pickup_location,
-            "date_pickup" => $req->date_pickup,
-            "fuel_consumption" => $req->fuel_consumption,
-            "cost" => $req->cost
-        ]);
+        // TODO: Find driver
+        // Find: Product
+        // Find: Vehicle
+        // Location == Warehouse
+        // TODO: Calculate distance, cost
 
+        $result = Delivery::create($req->all());
 
-
-        if (!$result) return response(400)->json(['success' => false]);
+        if (!$result) return response()->json(['success' => false]);
         return response()->json($result);
     }
 
@@ -110,12 +103,13 @@ class DeliveryController extends Controller
         $result = Delivery::destroy($id);
         return response()->json(['error' => $result == 0]);
     }
+
     public function update(Request $req, $id)
     {
         $result = Delivery::find($id);
-        if (!$result) return response(404)->json(["error" => true]);
+        if (!$result) return response()->json(["error" => true]);
 
-        // TODO: Edit
+        $result->update($req->all());
 
         return response()->json($result);
     }

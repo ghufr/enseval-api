@@ -14,13 +14,17 @@ class CreateTransactionTable extends Migration
     public function up()
     {
         Schema::create('income', function (Blueprint $table) {
+            $table->id();
             $table->integer('amount');
             $table->string('note');
+            $table->string('source');
             $table->timestamps();
         });
         Schema::create('expense', function (Blueprint $table) {
+            $table->id();
             $table->integer('amount');
             $table->string('note');
+            $table->string('source');
             $table->timestamps();
         });
     }

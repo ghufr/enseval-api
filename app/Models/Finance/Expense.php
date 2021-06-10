@@ -10,4 +10,5 @@ class Expense extends Transaction
     use HasFactory;
     protected $table = "expense";
     protected $guarded = [];
+    protected $fillable = [];
 }

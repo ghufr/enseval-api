@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Logistics;
 
 use App\Http\Controllers\Controller;
+use App\Models\Logistics\Delivery;
 use App\Models\Logistics\Track;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 
 
@@ -78,6 +78,10 @@ class TrackController extends Controller
      */
     public function create(Request $req)
     {
+        $delivery = Delivery::findOne($req->delivery_id);
+
+        if (empty($delivery)) return response()->json(["error" => true]);
+
         $result = Track::create([
             "temp" => $req->temp,
             "fuel_capacity" => $req->fuel_capacity,
@@ -115,14 +119,7 @@ class TrackController extends Controller
 
         if (!$result) return response()->json(['error' => true]);
 
-        $result->temp = $req->temp;
-        $result->fuel_capacity = $req->fuel_capacity;
-        $result->speed = $req->speed;
-        $result->loc_lat = $req->loc_lat;
-        $result->loc_lng = $req->loc_lng;
-        $result->delivery_id = $req->delivery_id;
-        $result->status = 'running';
-        $result->save();
+        $result->update($req->all());
 
         return response()->json($result);
     }

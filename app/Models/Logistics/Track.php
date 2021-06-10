@@ -37,4 +37,9 @@ class Track extends Model
         "delivery_id",
         "status"
     ];
+
+    public function delivery()
+    {
+        return $this->belongsToMany(Delivery::class);
+    }
 }

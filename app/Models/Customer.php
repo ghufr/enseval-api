@@ -14,6 +14,6 @@ class Customer extends Model
         'first_name',
         'last_name',
         'business_name',
-        'addresses',
+        'phone',
     ];
 }

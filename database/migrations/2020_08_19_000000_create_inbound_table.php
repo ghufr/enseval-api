@@ -14,12 +14,11 @@ class CreateInboundTable extends Migration
     public function up()
     {
         Schema::create('inbound', function (Blueprint $table) {
-            $table->bigIncrements('inbound_id');
-            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedBigInteger('warehouse_id');
-            $table->foreign('warehouse_id')->references('warehouse_id')->on('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->dateTime('date_inbound');
+            $table->id();
             $table->integer('cost');
+            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('warehouse_id')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
+            // $table->dateTime('date_inbound');
             $table->timestamps();
         });
     }

@@ -10,5 +10,13 @@ class Stock extends Model
     use HasFactory;
     protected $table = "stock";
 
-    protected $fillable = [];
+    protected $fillable = [
+        "product_id",
+        "quantity"
+    ];
+
+    public function product()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

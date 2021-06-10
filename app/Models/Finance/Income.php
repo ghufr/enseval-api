@@ -10,4 +10,5 @@ class Income extends Transaction
     use HasFactory;
     protected $table = "income";
     protected $guarded = [];
+    protected $fillable = [];
 }

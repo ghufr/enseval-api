@@ -14,4 +14,41 @@ use App\Models\Warehouse\Warehouse;
  */
 class WarehouseController extends Controller
 {
+	public function find()
+	{
+		$result = Warehouse::all();
+		if (count($result) <= 0) return response()->json(["error" => true]);
+
+		return response()->json($result);
+	}
+
+	public function findOne($id)
+	{
+		$result = Warehouse::findOne($id);
+		return response()->json($result);
+	}
+
+	public function create(Request $req)
+	{
+		$result = Warehouse::create([
+			"location" => $req->location,
+			"capacity" => $req->capacity
+		]);
+
+		return response()->json($result);
+	}
+
+	public function update(Request $req, $id)
+	{
+		$result = Warehouse::findOrFail($id);
+		$result->update($req->all());
+
+		return response()->json($result);
+	}
+
+	public function delete($id)
+	{
+		$result = Warehouse::destroy($id);
+		return response()->json($result);
+	}
 }

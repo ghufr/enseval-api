@@ -10,5 +10,20 @@ class Inbound extends Model
     use HasFactory;
     protected $table = "inbound";
 
-    protected $fillable = [];
+    protected $fillable = [
+        "cost",
+        "warehouse_id",
+        "product_id",
+        "quantity"
+    ];
+
+    public function warehouse()
+    {
+        return $this->belongsToMany(Warehouse::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

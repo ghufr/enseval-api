@@ -14,16 +14,20 @@ class CreateDeliveryTable extends Migration
     public function up()
     {
         Schema::create('delivery', function (Blueprint $table) {
-            $table->bigIncrements('delivery_id');
-            $table->foreignId('driver_id')->constrained('driver')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('vehicle_id')->constrained('vehicle')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->id();
             $table->string('delivery_type');
             $table->string('pickup_location');
             $table->string('destination_location');
+
             $table->dateTime('date_pickup');
             $table->float('fuel_consumption');
             $table->integer('cost');
+
+            $table->foreignId('source_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
+            $table->foreignId('dest_warehouse')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete()->nullable(true);
+            $table->foreignId('driver_id')->constrained('driver')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('vehicle_id')->constrained('vehicle')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

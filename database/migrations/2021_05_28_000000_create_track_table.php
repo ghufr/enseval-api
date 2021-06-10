@@ -15,15 +15,14 @@ class CreateTrackTable extends Migration
     {
         Schema::create('track', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->double('temp');
             $table->double('fuel_capacity');
             $table->double('speed');
-            $table->double('distance_from_arrival')->nullable(true);
             $table->double('loc_lat');
             $table->double('loc_lng');
-            $table->foreignId('delivery_id')->nullable(true);
             $table->string('status');
+            $table->foreignId('delivery_id')->constrained('delivery')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

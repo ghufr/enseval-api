@@ -10,11 +10,15 @@ class Delivery extends Model
     use HasFactory;
     protected $table = "delivery";
     protected $guarded = [];
-    public $timestamps = false;
 
     public function driver()
     {
         return $this->belongsToMany(Driver::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsToMany(Customer::class);
     }
 
     public function product()

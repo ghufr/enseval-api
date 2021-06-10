@@ -1,24 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Finance;
+namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Models\Maintenance;
 use Illuminate\Http\Request;
-use App\Models\Finance\Income;
 
 
-/**
- * @OA\Tag(
- *  name="Income",
- *  description="API Endpoint Income"
- * 	)
- */
-
-class IncomeController extends Controller
+class MaintenanceController extends Controller
 {
 	public function find()
 	{
-		$result = Income::all();
+		$result = Maintenance::all();
 		if (count($result) <= 0) return response()->json(["error" => true]);
 
 		return response()->json($result);
@@ -26,14 +19,17 @@ class IncomeController extends Controller
 
 	public function findOne($id)
 	{
-		$result = Income::findOne($id);
+		$result = Maintenance::findOne($id);
 		return response()->json($result);
 	}
 
 	public function create(Request $req)
 	{
-		$result = Income::create(
-			$req->all()
+		$result = Maintenance::create(
+			[
+				"quantity_exp" => $req->quantity_exp,
+				"date" => $req->date
+			]
 		);
 
 		return response()->json($result);
@@ -41,7 +37,7 @@ class IncomeController extends Controller
 
 	public function update(Request $req, $id)
 	{
-		$result = Income::findOrFail($id);
+		$result = Maintenance::findOrFail($id);
 		$result->update($req->all());
 
 		return response()->json($result);
@@ -49,7 +45,7 @@ class IncomeController extends Controller
 
 	public function delete($id)
 	{
-		$result = Income::destroy($id);
+		$result = Maintenance::destroy($id);
 
 		return response()->json($result);
 	}

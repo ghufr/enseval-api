@@ -78,13 +78,7 @@ class DriverController extends Controller
 
     public function create(Request $req)
     {
-        $result = Driver::create([
-            'name' => $req->name,
-            'phone' => $req->phone,
-            'age' => $req->age,
-            'status' => $req->status,
-
-        ]);
+        $result = Driver::create($req->all());
         if (!$result) return response()->json(['error' => true]);
         return response()->json($result);
     }
@@ -126,7 +120,7 @@ class DriverController extends Controller
         $result = Driver::find($id);
         if (!$result) return response()->json(["error" => true]);
 
-        // TODO: Edit
+        $result->update($req->all());
 
         return response()->json($result);
     }

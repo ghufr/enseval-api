@@ -12,7 +12,6 @@ class Transaction extends Model
     protected $fillable = [
         'amount',
         'note',
-        'tag',
-        'items',
+        'source',
     ];
 }

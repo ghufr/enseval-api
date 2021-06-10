@@ -10,5 +10,8 @@ class Warehouse extends Model
     use HasFactory;
     protected $table = "warehouse";
 
+    // TODO: Define Model Warehouse
     protected $fillable = [];
+
+    // TODO: Define relationship
 }

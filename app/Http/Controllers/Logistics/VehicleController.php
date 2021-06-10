@@ -134,7 +134,7 @@ class VehicleController extends Controller
         $result = Vehicle::find($id);
         if (!$result) return response()->json(["error" => true]);
 
-        // TODO: Edit
+        $result->update($req->all());
 
         return response()->json($result);
     }
