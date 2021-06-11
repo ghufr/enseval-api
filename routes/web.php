@@ -23,7 +23,7 @@ Route::resource('home', HomeController::class);
 Route::resource('warehouse', WarehouseController::class);
 Route::resource('financial', FinancialController::class);
 
-route::name('logistik.')->group(function () {
+Route::name('logistik.')->group(function () {
     Route::resource('driver', DriverController::class);
     Route::resource('product', ProductController::class);
     Route::resource('tracking', TrackingController::class);
@@ -31,7 +31,7 @@ route::name('logistik.')->group(function () {
     Route::resource('delivery', DeliveryController::class);
 });
 
-route::name('warehouse.')->group(function () {
+Route::name('warehouse.')->group(function () {
     Route::resource('inbound', InboundController::class);
     Route::resource('maintenance', MaintenanceController::class);
     Route::resource('operational', OperationalController::class);
