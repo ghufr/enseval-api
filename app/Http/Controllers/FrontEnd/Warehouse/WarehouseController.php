@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
-class StockController extends Controller
+class WarehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
