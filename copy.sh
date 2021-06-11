@@ -1,1 +1,1 @@
-sudo . /var/www/html/ -r
+sudo cp . /var/www/html/ -r
