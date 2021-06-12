@@ -51,7 +51,7 @@
                                     <td>{{$row->status}}</td>
 
                                     <td>
-                                        <a href="{{ route('logistik.tracking.edit') }}" class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('logistik.tracking.show', $row->id) }}" class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                                         <form method="post" class="d-inline">
                                             @csrf
                                             @method('delete')
