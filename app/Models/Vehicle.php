@@ -29,7 +29,6 @@ class Vehicle extends Model
     protected $table = "vehicle";
     protected $guarded = [];
     protected $fillable = [
-        'name',
         'type',
         'fuel_capacity',
         'capacity',

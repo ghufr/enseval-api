@@ -4,7 +4,7 @@
 <div class="col">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title text-primary ">Tambah Driver</h4>
+            <h4 class="card-title text-primary ">Ubah Driver</h4>
         </div>
         <div class="card-body">
             <form action="{{ route('logistik.driver.store') }}" method="post" enctype="multipart/form-data">

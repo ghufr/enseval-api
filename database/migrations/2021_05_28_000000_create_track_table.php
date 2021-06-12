@@ -15,9 +15,9 @@ class CreateTrackTable extends Migration
     {
         Schema::create('track', function (Blueprint $table) {
             $table->id();
-            $table->double('temp');
-            $table->double('fuel_capacity');
-            $table->double('speed');
+            $table->double('temp')->nullable(true);
+            $table->double('fuel_capacity')->nullable(true);
+            $table->double('speed')->nullable(true);
             $table->double('loc_lat');
             $table->double('loc_lng');
             $table->string('status');

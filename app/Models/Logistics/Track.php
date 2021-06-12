@@ -30,8 +30,6 @@ class Track extends Model
 
     protected $fillable = [
         "temp",
-        "fuel_capacity",
-        "speed",
         "loc_lat",
         "loc_lng",
         "delivery_id",

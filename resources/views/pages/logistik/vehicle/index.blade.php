@@ -42,7 +42,7 @@
                         <tbody>
                             @foreach($data as $row)
                                 <tr>
-                                    <td>{{ $loop->iterator }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $row->type }}</td>
                                     <td>{{ $row->capacity }}</td>
                                     <td>{{ $row->fuel_capacity }}</td>

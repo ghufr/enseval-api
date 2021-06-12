@@ -41,11 +41,11 @@
                         <tbody>
                             @foreach($data as $row)
                             <tr>
-                                <td>{{$row->id}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$row->delivery_type}}</td>
                                 <td>{{$row->pickup_location}}</td>
                                 <td>{{$row->destination_location}}</td>
-                                <td>{{$row->date}}</td>
+                                <td>{{$row->date_pickup}}</td>
                                 <td>
                                     <a class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                                     <form method="post" action="{{ route('logistik.delivery.destroy', $row->id) }}" class="d-inline">
@@ -56,7 +56,7 @@
 
                                 </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -31,13 +31,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Temperature</th>
-                                <th>Fuel Capacity</th>
+                                <th>Temp</th>
+                                {{-- <th>Fuel Capacity</th> --}}
                                 <th>Latitude</th>
                                 <th>Longitude</th>
-                                <th>Delivery Id</th>
+                                <th>Delivery</th>
                                 <th>Status</th>
-
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -52,7 +51,7 @@
                                     <td>{{$row->status}}</td>
 
                                     <td>
-                                        <a " class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('logistik.tracking.edit') }}" class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
                                         <form method="post" class="d-inline">
                                             @csrf
                                             @method('delete')

@@ -42,9 +42,10 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        Product::create($req->all());
+        return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Ditambah.');
     }
 
     /**
@@ -55,7 +56,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Product::find($id);
+        return view('pages.logistik.product.create', [
+            'title' => 'Ubah Product',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -89,6 +94,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Dihapus.');
     }
 }

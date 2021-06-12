@@ -30,10 +30,8 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $driver = Driver::get();
         return view('pages.logistik.driver.create', [
-            'title' => 'Tambah Driver',
-            'driver' => $driver
+            'title' => 'Tambah Driver'
         ]);
     }
 
@@ -65,7 +63,11 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Driver::find($id);
+        return view('pages.logistik.driver.create', [
+            'title' => 'Ubah Driver',
+            'data' => $data
+        ]);
     }
 
     /**

@@ -42,9 +42,10 @@ class TrackingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        Track::create($req->all());
+        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Ditambah.');
     }
 
     /**
@@ -55,7 +56,12 @@ class TrackingController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Track::find($id);
+
+        return view('pages.logistik.tracking.create', [
+            'title' => 'Ubah Tracking',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -66,7 +72,7 @@ class TrackingController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -89,6 +95,7 @@ class TrackingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Track::destroy($id);
+        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Dihapus.');
     }
 }

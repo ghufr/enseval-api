@@ -40,12 +40,13 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $res = Vehicle::create($req->all());
+        return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Ditambah.');
     }
 
     /**
@@ -56,7 +57,12 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Vehicle::find($id);
+
+        return view('pages.logistik.vehicle.create', [
+            'title' => 'Ubah Vehicle',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -90,6 +96,7 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Vehicle::destroy($id);
+        return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Dihapus.');
     }
 }
