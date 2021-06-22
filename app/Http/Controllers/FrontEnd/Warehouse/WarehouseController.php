@@ -5,6 +5,8 @@ namespace App\Http\Controllers\FrontEnd\Warehouse;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse\Warehouse;
+
 
 class WarehouseController extends Controller
 {
@@ -15,8 +17,10 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('pages.warehouse.stock.index', [
-            'title' => 'Warehouse'
+        $data = warehouse::all();
+        return view('pages.warehouse.warehouse.index', [
+            'title' => 'Warehouse',
+            'data' => $data
         ]);
     }
 
@@ -27,7 +31,11 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        $data = warehouse::all();
+        return view('pages.warehouse.warehouse.create', [
+            'title' => 'Warehouse',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -38,7 +46,18 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'location' => ['required'],
+            // 'loc_lat' => ['required'],
+            // 'loc_lng' => ['required'],
+            'capacity' => ['required'],
+            'volume' => ['required'],
+        ]);
+
+        $warehouse = $request->all();
+        warehouse::create($warehouse);
+
+        return redirect()->route('warehouse.warehouse.index')->with('success', 'warehouse Berhasil Ditambah.');
     }
 
     /**
@@ -49,7 +68,12 @@ class WarehouseController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = warehouse::findOrFail($id);
+
+        return view('pages.warehouse.warehouse.show', [
+            'title' => 'Detail warehouse',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -60,7 +84,12 @@ class WarehouseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = warehouse::findOrFail($id);
+
+        return view('pages.warehouse.warehouse.edit', [
+            'title' => 'Detail warehouse',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -72,7 +101,18 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $warehouse = warehouse::findOrFail($id);
+        $request->validate([
+            'location' => ['required'],
+            // 'loc_lat' => ['required'],
+            // 'loc_lng' => ['required'],
+            'capacity' => ['required'],
+            'volume' => ['required'],
+        ]);
+
+        $data = $request->all();
+        $warehouse->update($data);
+        return redirect()->route('warehouse.warehouse.index')->with('success', 'warehouse Berhasil Di update.');
     }
 
     /**
@@ -83,6 +123,8 @@ class WarehouseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $warehouse = warehouse::findOrFail($id);
+        $warehouse->delete();
+        return redirect()->route('warehouse.warehouse.index')->with('success', 'warehouse Berhasil Di hapus.');
     }
 }

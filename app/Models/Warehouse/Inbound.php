@@ -9,21 +9,21 @@ class Inbound extends Model
 {
     use HasFactory;
     protected $table = "inbound";
-
-    protected $fillable = [
-        "cost",
-        "warehouse_id",
-        "product_id",
-        "quantity"
-    ];
+    protected $guarded = [];
+    public $timestamps = false;
 
     public function warehouse()
     {
-        return $this->belongsToMany(Warehouse::class);
+        return $this->belongsTo('App\Models\Warehouse\Warehouse');
     }
 
     public function product()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsTo('App\Models\Product');
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo('App\Models\Logistics\Delivery');
     }
 }

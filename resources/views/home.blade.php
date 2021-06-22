@@ -1,7 +1,7 @@
 @extends('templates.default')
 @section('content')
 <!-- Page Heading -->
-<div class="mb-4 d-sm-flex align-items-center justify-content-between">
-    <h1 class="mb-0 text-gray-800 h3">LALALA</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">qweqwewqe</h1>
 </div>
 @endsection

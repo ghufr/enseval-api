@@ -5,12 +5,13 @@ namespace App\Http\Controllers\FrontEnd\Logistik;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Driver;
 
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource..
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,8 +31,10 @@ class DriverController extends Controller
      */
     public function create()
     {
+        $driver = Driver::get();
         return view('pages.logistik.driver.create', [
-            'title' => 'Tambah Driver'
+            'title' => 'Tambah Driver',
+            'driver' => $driver
         ]);
     }
 
@@ -41,16 +44,17 @@ class DriverController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $req->validate([
+        $request->validate([
             'name' => ['required'],
             'phone' => ['required'],
             'age' => ['required'],
             'status' => ['required']
         ]);
 
-        Driver::create($req->all());
+        $driver = $request->all();
+        Driver::create($driver);
 
         return redirect()->route('logistik.driver.index')->with('success', 'Driver Berhasil Ditambah.');
     }
@@ -63,9 +67,10 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        $data = Driver::find($id);
-        return view('pages.logistik.driver.create', [
-            'title' => 'Ubah Driver',
+        $data = Driver::findOrFail($id);
+
+        return view('pages.logistik.driver.show', [
+            'title' => 'Detail Driver',
             'data' => $data
         ]);
     }
@@ -78,7 +83,12 @@ class DriverController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Driver::findOrFail($id);
+
+        return view('pages.logistik.driver.edit', [
+            'title' => 'Edit Driver' . $data->name,
+            'data' => $data
+        ]);
     }
 
     /**
@@ -90,7 +100,18 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $request->validate([
+            'name' => ['required'],
+            'phone' => ['required'],
+            'age' => ['required'],
+            'status' => ['required']
+        ]);
+
+        $data = $request->all();
+        $driver->update($data);
+
+        return redirect()->route('logistik.driver.index')->with('success', 'Driver Berhasil Di update');
     }
 
     /**
@@ -101,7 +122,8 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        Driver::destroy($id);
-        return redirect()->route('logistik.driver.index')->with('success', 'Driver Berhasil Dihapus.');
+        $driver = Driver::findOrFail($id);
+        $driver->delete();
+        return redirect()->route('logistik.driver.index')->with('success', 'Driver Berhasil Di hapus');
     }
 }

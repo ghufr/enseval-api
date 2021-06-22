@@ -9,21 +9,19 @@ class Outbound extends Model
 {
     use HasFactory;
     protected $table = "outbound";
-
-    protected $fillable = [
-        "cost",
-        "warehouse_id",
-        "product_id",
-        "quantity"
-    ];
+    protected $guarded = [];
 
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class);
+        return $this->belongsTo('App\Models\Warehouse\Warehouse');
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo('App\Models\Product');
+    }
+    public function delivery()
+    {
+        return $this->belongsTo('App\Models\Logistics\Delivery');
     }
 }

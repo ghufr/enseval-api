@@ -21,8 +21,8 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Vehicle</h6>
-                    <a href="{{ route('logistik.vehicle.create') }}" class="btn btn-sm btn-primary">Tambah Data</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Product</h6>
+                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.vehicle.create') }}">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -31,36 +31,36 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Type</th>
-                                <th>Capacity</th>
-                                <th>Fuel Capacity</th>
-                                <th>Brand</th>
+                                <th>Jenis Kendaraan</th>
+                                <th>Kapasitas Muatan</th>
+                                <th>Kapasitas Bensin</th>
+                                <th>Brand Kendaraan</th>
                                 <th>Status</th>
-                                <th>aksi</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->type }}</td>
-                                    <td>{{ $row->capacity }}</td>
-                                    <td>{{ $row->fuel_capacity }}</td>
-                                    <td>{{ $row->brand }}</td>
-                                    <td>{{ $row->status }}</td>
-                                    <td>
-                                        <a class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                        <form method="post" action="{{ route('logistik.vehicle.destroy', $row->id) }}" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </form>
-
-                                    </td>
-                                </tr>
+                            @foreach ($data as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->type }}</td>
+                                <td>{{ $item->capacity }}</td>
+                                <td>{{ $item->fuel_capacity }}</td>
+                                <td>{{ $item->brand }}</td>
+                                <td>{{ $item->status }}</td>
+                                <td>
+                                    <a class=" btn btn-sm btn-warning" href="{{ route('logistik.vehicle.show', $item->id) }}"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('logistik.vehicle.destroy', $item->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.vehicle.edit', $item->id) }}">Edit</a>
+                                </td>
+                            </tr>
                             @endforeach
-
                         </tbody>
+                    </table>
                     </table>
                 </div>
             </div>

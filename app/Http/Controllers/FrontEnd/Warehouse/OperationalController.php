@@ -5,6 +5,10 @@ namespace App\Http\Controllers\FrontEnd\Warehouse;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse\Operational;
+use App\Models\Warehouse\Maintenance;
+use App\Models\Warehouse\Inbound;
+use App\Models\Warehouse\Outbound;
 
 class OperationalController extends Controller
 {
@@ -15,8 +19,10 @@ class OperationalController extends Controller
      */
     public function index()
     {
+        $data = Operational::with('maintenance', 'inbound', 'outbound')->get();
         return view('pages.warehouse.operational.index', [
-            'title' => 'Warehouse'
+            'title' => 'Warehouse',
+            'data' => $data
         ]);
     }
 
@@ -27,7 +33,17 @@ class OperationalController extends Controller
      */
     public function create()
     {
-        //
+        $inbound = Inbound::all();
+        $maintenance = Maintenance::all();
+        $outbound = Outbound::all();
+        $data = Operational::all();
+
+        return view('pages.warehouse.operational.create', [
+            'title' => 'Warehouse',
+            'maintenance' => $maintenance,
+            'inbound' => $inbound,
+            'outbound' => $outbound
+        ]);
     }
 
     /**
@@ -38,7 +54,13 @@ class OperationalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        ]);
+
+        $Operational = $request->all();
+        operational::create($Operational);
+
+        return redirect()->route('warehouse.operational.index')->with('success', 'Operational Berhasil Ditambah.');
     }
 
     /**
@@ -49,7 +71,12 @@ class OperationalController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Operational::findOrFail($id);
+
+        return view('pages.warehouse.operational.show', [
+            'title' => 'Detail Operational',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -60,7 +87,20 @@ class OperationalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Operational::findOrFail($id);
+        $maintenance = Maintenance::all();
+        $inbound = Inbound::all();
+        $outbound = Outbound::all();
+
+
+
+        return view('pages.warehouse.operational.edit', [
+            'title' => 'Operational',
+            'data' => $data,
+            'maintenance' => $maintenance,
+            'inbound' => $inbound,
+            'outbound' => $outbound
+        ]);
     }
 
     /**
@@ -72,7 +112,13 @@ class OperationalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Operational = Operational::findOrFail($id);
+        
+        
+
+        $data = $request->all();
+        $Operational->update($data);
+        return redirect()->route('warehouse.operational.index')->with('success', 'Operational Berhasil Di update');
     }
 
     /**
@@ -83,6 +129,8 @@ class OperationalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Operational = Operational::findOrFail($id);
+        $Operational->delete();
+        return redirect()->route('warehouse.operational.index')->with('success', 'Operational Berhasil Di hapus');
     }
 }

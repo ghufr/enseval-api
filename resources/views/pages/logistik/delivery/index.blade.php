@@ -22,7 +22,7 @@
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Delivery</h6>
-                    <a href="{{ route('logistik.delivery.create') }}" class="btn btn-sm btn-primary">Tambah Data</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.delivery.create') }}">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -32,28 +32,36 @@
                             <tr>
                                 <th>#</th>
                                 <th>Delivery Type</th>
+                                <th>Product</th>
+                                <th>Kendaraan</th>
+                                <th>Driver</th>
+                                <th>Tanggal Pickup</th>
                                 <th>Pickup Lokasi</th>
                                 <th>Tujuan Lokasi</th>
-                                <th>Tanggal Pickup</th>
+                                <th>Biaya</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
+                            @foreach ($data as $item)
                             <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$row->delivery_type}}</td>
-                                <td>{{$row->pickup_location}}</td>
-                                <td>{{$row->destination_location}}</td>
-                                <td>{{$row->date_pickup}}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->delivery_type}}</td>
+                                <td>{{ $item->product->name }}</td>
+                                <td>{{ $item->vehicle->type}}</td>
+                                <td>{{ $item->driver->name }}</td>
+                                <td>{{ $item->date_pickup }}</td>
+                                <td>{{ $item->pickup_location }}</td>
+                                <td>{{ $item->destination_location }}</td>
+                                <td>{{ $item->cost }}</td>
                                 <td>
-                                    <a class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                    <form method="post" action="{{ route('logistik.delivery.destroy', $row->id) }}" class="d-inline">
+                                    <a class=" btn btn-sm btn-warning" href="{{ route('logistik.delivery.show', $item->id) }}"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('logistik.delivery.destroy', $item->id) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
-
+                                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.delivery.edit', $item->id) }}">Edit</a>
                                 </td>
                             </tr>
                             @endforeach

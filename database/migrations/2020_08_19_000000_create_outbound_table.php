@@ -15,10 +15,12 @@ class CreateOutboundTable extends Migration
     {
         Schema::create('outbound', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity_out');
             $table->integer('cost');
+            $table->string('out_date');
             $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('warehouse_id')->contrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
-            // $table->dateTime('date_outbound');
+            $table->foreignId('delivery_id')->constrained('delivery')->cascadeOnUpdate()->cascadeOnDelete();
+            // $table->dateTime('date_inbound');
             $table->timestamps();
         });
     }

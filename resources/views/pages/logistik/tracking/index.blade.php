@@ -22,7 +22,7 @@
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Tracking</h6>
-                    <a href="{{ route('logistik.tracking.create') }}" class="btn btn-sm btn-primary">Tambah Data</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.tracking.create') }}">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -31,37 +31,38 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Temp</th>
-                                {{-- <th>Fuel Capacity</th> --}}
-                                <th>Latitude</th>
-                                <th>Longitude</th>
                                 <th>Delivery</th>
+                                <th>Temperature</th>
+                                <th>Speed AVG</th>
+                                <th>Penggunaan Bensin</th>
+                                <th>Loc Lat</th>
+                                <th>Loc Lng</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$row->temp}}</td>
-                                    <td>{{$row->loc_lat}}</td>
-                                    <td>{{$row->loc_lng}}</td>
-                                    <td>{{$row->delivery_id}}</td>
-                                    <td>{{$row->status}}</td>
-
-                                    <td>
-                                        <a href="{{ route('logistik.tracking.show', $row->id) }}" class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                        <form method="post" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </form>
-
-                                    </td>
-                                </tr>
+                            @foreach ($data as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->delivery->delivery_type . '-' . $item->delivery->id }}</td>
+                                <td>{{ $item->temp }}</td>
+                                <td>{{ $item->speed }}</td>
+                                <td>{{ $item->fuel_capacity }}</td>
+                                <td>{{ $item->loc_lat }}</td>
+                                <td>{{ $item->loc_lng }}</td>
+                                <td>{{ $item->status}}</td>
+                                <td>
+                                    <a class=" btn btn-sm btn-warning" href="{{ route('logistik.tracking.show', $item->id) }}"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('logistik.tracking.destroy', $item->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.tracking.edit', $item->id) }}">Edit</a>
+                                </td>
+                            </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

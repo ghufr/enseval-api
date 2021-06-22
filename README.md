@@ -1,14 +1,11 @@
-# How to start
+composer update
 
-```console
+copy paste .env
 
-	cp .env.example .env
+buat db di phpmyadmin sesuai .env
 
-	php artisan generate:key
+php artisan migrate
 
-	composer install
+php artisan generate:key
 
-	php artisan migrate
-
-	php artisan serve
-```
+php artisan serve

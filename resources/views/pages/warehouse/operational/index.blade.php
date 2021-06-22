@@ -21,8 +21,8 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Warehouse Operational</h6>
-                    <a class="btn btn-sm btn-primary">Tambah Data</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Operational</h6>
+                    <a class="btn btn-sm btn-primary" href="{{ route('warehouse.operational.create') }}">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -31,36 +31,32 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Delivery Type</th>
-                                <th>Pickup Lokasi</th>
-                                <th>Tujuan Lokasi</th>
-                                <th>Tanggal Pickup</th>
-                                <th>Tujuan Pickup</th>
-                                <th>Fuel Consumption</th>
+                                <th>Maintenance_ID</th>
+                                <th>Inbound_ID</th>
+                                <th>Outbound_ID</th>
+                                <th>Expense_ID</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($data as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->maintenance_id}}</td>
+                                <td>{{ $item->inbound_id}}</td>
+                                <td>{{ $item->outbound_id}}</td>
+                                <td>{{ $item->expense_id}}</td>
                                 <td>
-                                    <a " class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                    <form method="post" class="d-inline">
+                                    <a " class=" btn btn-sm btn-warning" href="{{route('warehouse.operational.show', $item->id)}}" ><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('warehouse.operational.destroy', $item->id)}}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
-
+                                    <a class="btn btn-sm btn-primary" href="{{ route('warehouse.operational.edit', $item->id) }}">Edit</a>
                                 </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Models\Logistics\Track;
+use App\Models\Logistics\Delivery;
 
 class TrackingController extends Controller
 {
@@ -16,8 +17,7 @@ class TrackingController extends Controller
      */
     public function index()
     {
-        $data = Track::all();
-
+        $data = Track::with('delivery')->get();
         return view('pages.logistik.tracking.index', [
             'title' => 'Tracking',
             'data' => $data
@@ -31,8 +31,12 @@ class TrackingController extends Controller
      */
     public function create()
     {
+        $delivery = Delivery::get();
+        $data = Track::get();
         return view('pages.logistik.tracking.create', [
-            'title' => 'Tambah Tracking'
+            'title' => 'Tracking',
+            'data' => $data,
+            'delivery' => $delivery,
         ]);
     }
 
@@ -42,10 +46,21 @@ class TrackingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        Track::create($req->all());
-        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Ditambah.');
+        $request->validate([
+            'delivery_id' => ['required'],
+            'temp' => ['required'],
+            'speed' => ['required'],
+            'fuel_capacity' => ['required'],
+            'loc_lat' => ['required'],
+            'loc_lng' => ['required'],
+            'status' => ['required'],
+        ]);
+        $data = request()->all();
+        Track::create($data);
+
+        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Ditambah');
     }
 
     /**
@@ -56,10 +71,9 @@ class TrackingController extends Controller
      */
     public function show($id)
     {
-        $data = Track::find($id);
-
-        return view('pages.logistik.tracking.create', [
-            'title' => 'Ubah Tracking',
+        $data = Track::findOrFail($id);
+        return view('pages.logistik.tracking.show', [
+            'title' => 'Detail Vehicle',
             'data' => $data
         ]);
     }
@@ -72,7 +86,13 @@ class TrackingController extends Controller
      */
     public function edit($id)
     {
-
+        $delivery = Delivery::get();
+        $data = Track::findOrFail($id);
+        return view('pages.logistik.tracking.edit', [
+            'title' => 'Detail Vehicle',
+            'data' => $data,
+            'delivery' => $delivery,
+        ]);
     }
 
     /**
@@ -84,7 +104,20 @@ class TrackingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $track = Track::findOrFail($id);
+        $request->validate([
+            'delivery_id' => ['required'],
+            'temp' => ['required'],
+            'speed' => ['required'],
+            'fuel_capacity' => ['required'],
+            'loc_lat' => ['required'],
+            'loc_lng' => ['required'],
+            'status' => ['required'],
+        ]);
+        $data = request()->all();
+        $track->update($data);
+
+        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Di update');
     }
 
     /**
@@ -95,7 +128,8 @@ class TrackingController extends Controller
      */
     public function destroy($id)
     {
-        Track::destroy($id);
-        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Dihapus.');
+        $data = Track::findOrFail($id);
+        $data->delete();
+        return redirect()->route('logistik.tracking.index')->with('success', 'Tracking Berhasil Di hapus');
     }
 }

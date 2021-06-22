@@ -28,15 +28,9 @@ class Vehicle extends Model
 
     protected $table = "vehicle";
     protected $guarded = [];
-    protected $fillable = [
-        'type',
-        'fuel_capacity',
-        'capacity',
-        'brand',
-        'status'
-    ];
-    public function deliveries()
+
+    public function delivery()
     {
-        return $this->hasMany(Delivery::class);
+        return $this->hasMany('App\Models\Logistics\Delivery');
     }
 }

@@ -16,8 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
 
+        $data = Product::all();
         return view('pages.logistik.product.index', [
             'title' => 'Product',
             'data' => $data
@@ -31,8 +31,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.logistik.produk.create', [
-            'title' => 'Tambah Produk'
+        $data = Product::get();
+        return view('pages.logistik.product.create', [
+            'title' => 'Tambah Driver',
+            'data' => $data
         ]);
     }
 
@@ -42,9 +44,17 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        Product::create($req->all());
+        $request->validate([
+            'name' => ['required'],
+            'price' => ['required'],
+            'weight' => ['required'],
+            'exp_date' => ['required']
+        ]);
+        $data = request()->all();
+        Product::create($data);
+
         return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Ditambah.');
     }
 
@@ -56,9 +66,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = Product::find($id);
-        return view('pages.logistik.product.create', [
-            'title' => 'Ubah Product',
+        $data = Product::findOrFail($id);
+
+        return view('pages.logistik.product.show', [
+            'title' => 'Detail Product',
             'data' => $data
         ]);
     }
@@ -71,7 +82,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Product::findOrFail($id);
+
+        return view('pages.logistik.product.edit', [
+            'title' => 'Edit  Product',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -83,7 +99,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $request->validate([
+            'name' => ['required'],
+            'price' => ['required'],
+            'weight' => ['required'],
+            'exp_date' => ['required']
+        ]);
+        $data = request()->all();
+        $product->update($data);
+
+        return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Di update');
     }
 
     /**
@@ -94,7 +120,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
-        return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Dihapus.');
+        $data = Product::findOrFail($id);
+        $data->delete();
+        return redirect()->route('logistik.product.index')->with('success', 'Product Berhasil Di hapus');
     }
 }

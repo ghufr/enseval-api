@@ -26,10 +26,9 @@ class Driver extends Model
     use HasFactory;
     protected $table = "driver";
     protected $guarded = [];
-    protected $fillable = [
-        'name',
-        'phone',
-        'age',
-        'status'
-    ];
+
+    public function delivery()
+    {
+        return $this->hasMany('App\Models\Logistics\Delivery');
+    }
 }

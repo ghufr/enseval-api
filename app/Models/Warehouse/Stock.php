@@ -9,14 +9,15 @@ class Stock extends Model
 {
     use HasFactory;
     protected $table = "stock";
+    protected $guarded = [];
 
-    protected $fillable = [
-        "product_id",
-        "quantity"
-    ];
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Models\Warehouse\Warehouse');
+    }
 
     public function product()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsTo('App\Models\Product');
     }
 }

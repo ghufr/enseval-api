@@ -32,9 +32,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Driver</th>
-                                <th>No.HP</th>
+                                <th>Nomor Handphone</th>
                                 <th>Umur</th>
-                                <th>Status</th>
+                                <th>status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -46,14 +46,14 @@
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->age }}</td>
                                 <td>{{ $item->status }}</td>
-
                                 <td>
-                                    <a class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                    <form method="post" action="{{ route('logistik.driver.destroy', $item->id) }}" class="d-inline">
+                                    <a class=" btn btn-sm btn-warning" href="{{ route('logistik.driver.show', $item->id) }}"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('logistik.driver.destroy', $item->id) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.driver.edit', $item->id) }}">Edit</a>
                                 </td>
                             </tr>
                             @endforeach

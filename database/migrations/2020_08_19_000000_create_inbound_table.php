@@ -15,9 +15,11 @@ class CreateInboundTable extends Migration
     {
         Schema::create('inbound', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity_in');
             $table->integer('cost');
+            $table->string('in_date');
+            $table->foreignId('delivery_id')->constrained('delivery')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('product')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('warehouse_id')->constrained('warehouse')->cascadeOnUpdate()->cascadeOnDelete();
             // $table->dateTime('date_inbound');
             $table->timestamps();
         });

@@ -5,10 +5,11 @@ namespace App\Http\Controllers\FrontEnd\Logistik;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-use App\Models\Driver;
 use App\Models\Logistics\Delivery;
-use App\Models\Logistics\Track;
+use App\Models\Product;
+use App\Models\Driver;
 use App\Models\Vehicle;
+use App\Models\Warehouse\Warehouse;
 
 class DeliveryController extends Controller
 {
@@ -19,8 +20,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $data = Delivery::all();
-
+        $data = Delivery::with('driver', 'vehicle', 'product')->get();
         return view('pages.logistik.delivery.index', [
             'title' => 'Delivery',
             'data' => $data
@@ -34,13 +34,16 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        $driver = Driver::where('status', 'Available')->get();
-        $vehicle = Vehicle::where('status', 'Available')->get();
-
+        $vehicle = Vehicle::all();
+        $driver = Driver::all();
+        $product = Product::all();
+        $warehouse = Warehouse::all();
         return view('pages.logistik.delivery.create', [
-            'title' => 'Tambah Delivery',
-            'driver' => $driver,
+            'title' => 'Delivery',
+            'product' => $product,
             'vehicle' => $vehicle,
+            'driver' => $driver,
+            'warehouse' => $warehouse,
         ]);
     }
 
@@ -50,17 +53,23 @@ class DeliveryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $res = Delivery::create($req->all());
-        Track::create([
-            "temp" => 0,
-            "loc_lat" => -6.9,
-            "loc_lng" => 100,
-            "status" => "Pending",
-            "delivery_id" => $res->id
+        $request->validate([
+            'delivery_type' => ['required'],
+            'pickup_location' => ['required'],
+            'destination_location' => ['required'],
+            'date_pickup' => ['required'],
+            'cost' => ['required'],
+            'driver_id' => ['required'],
+            'vehicle_id' => ['required'],
+            'product_id' => ['required'],
         ]);
-        return redirect()->route('logistik.delivery.index')->with('success', 'Delivery Berhasil Ditambah.');
+
+        $delivery = $request->all();
+        Delivery::create($delivery);
+
+        return redirect()->route('logistik.delivery.index')->with('success', 'Delivery Berhasil Ditambah');
     }
 
     /**
@@ -71,10 +80,10 @@ class DeliveryController extends Controller
      */
     public function show($id)
     {
-        $data = Delivery::find($id);
+        $data = Delivery::findOrFail($id);
 
-        return view('pages.logistik.delivery.create', [
-            'title' => 'Ubah Delivery',
+        return view('pages.logistik.delivery.show', [
+            'title' => 'Detail Delivery',
             'data' => $data
         ]);
     }
@@ -87,7 +96,21 @@ class DeliveryController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $vehicle = Vehicle::get();
+        $driver = Driver::get();
+        $product = Product::get();
+        $delivery = Delivery::get();
+        $data = Delivery::findOrFail($id);
+
+        return view('pages.logistik.delivery.edit', [
+            'title' => 'Edit Delivery' . $data->name,
+            'data' => $data,
+            'product' => $product,
+            'vehicle' => $vehicle,
+            'driver' => $driver,
+            'delivery' => $delivery
+        ]);
     }
 
     /**
@@ -99,7 +122,21 @@ class DeliveryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Delivery = Delivery::findOrFail($id);
+        $request->validate([
+            'delivery_type' => ['required'],
+            'pickup_location' => ['required'],
+            'destination_location' => ['required'],
+            'date_pickup' => ['required'],
+            'cost' => ['required'],
+            'fuel_consumption' => ['required'],
+            'driver_id' => ['required'],
+            'vehicle_id' => ['required'],
+            'product_id' => ['required'],
+        ]);
+        $data = $request->all();
+        $Delivery->update($data);
+        return redirect()->route('logistik.delivery.index')->with('success', 'Delivery Berhasil Di update');
     }
 
     /**
@@ -110,7 +147,8 @@ class DeliveryController extends Controller
      */
     public function destroy($id)
     {
-        Delivery::destroy($id);
-        return redirect()->route('logistik.delivery.index')->with('success', 'Delivery Berhasil Dihapus.');
+        $Delivery = Delivery::findOrFail($id);
+        $Delivery->delete();
+        return redirect()->route('logistik.delivery.index')->with('success', 'Delivery Berhasil Di hapus');
     }
 }

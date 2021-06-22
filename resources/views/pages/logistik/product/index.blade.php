@@ -22,7 +22,7 @@
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Product</h6>
-                    <a href="{{ route('logistik.product.create') }}" class="btn btn-sm btn-primary">Tambah Data</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.product.create') }}">Tambah Data</a>
                 </div>
             </div>
             <div class="card-body">
@@ -33,29 +33,30 @@
                                 <th>#</th>
                                 <th>Nama Product</th>
                                 <th>Harga</th>
+                                <th>Berat</th>
                                 <th>Exp Date</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
+                            @foreach ($data as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $row->name }}</td>
-                                <td>{{ $row->price }}</td>
-                                <td>{{ $row->weight }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->price }}</td>
+                                <td>{{ $item->weight }}</td>
+                                <td>{{ $item->exp_date }}</td>
                                 <td>
-                                    <a " class=" btn btn-sm btn-warning"><i class="fas fa-eye"></i></a>
-                                    <form method="post" action="{{ route('logistik.product.destroy', $row->id) }}" class="d-inline">
+                                    <a class=" btn btn-sm btn-warning" href="{{ route('logistik.product.show', $item->id) }}"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('logistik.product.destroy', $item->id) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
-
+                                    <a class="btn btn-sm btn-primary" href="{{ route('logistik.product.edit', $item->id) }}">Edit</a>
                                 </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

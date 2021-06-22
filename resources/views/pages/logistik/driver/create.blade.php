@@ -12,7 +12,7 @@
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="name" class=" form-control-label">Nama Driver</label></div>
                     <div class="col-12 col-md-9">
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name=" name">
                     </div>
                 </div>
 
@@ -31,11 +31,8 @@
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="status" class=" form-control-label">Status</label></div>
-                    <div class="col-12 col-md-9">
-                        <select name="status" id="status" class="form-control">
-                            <option value="Unavailable">Unavailable</option>
-                            <option value="Available">Available</option>
-                        </select>
+                    <div class="col-5 col-md-9">
+                        <input type="text" name="status" id="status" cols="30" rows="5" class="form-control"></input>
                     </div>
                 </div>
                 <div class="form-group">

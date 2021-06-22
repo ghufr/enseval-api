@@ -9,9 +9,23 @@ class Warehouse extends Model
 {
     use HasFactory;
     protected $table = "warehouse";
+    protected $guarded = [];
+    public $timestamps = false;
 
-    // TODO: Define Model Warehouse
-    protected $fillable = [];
+    public function inbound()
+    {
+        return $this->hasMany('App\Models\Warehouse\Inbound');
+    }
 
-    // TODO: Define relationship
+
+    public function outbound()
+    {
+        return $this->hasMany('App\Models\Warehouse\Outbound');
+    }
+
+
+    public function stock()
+    {
+        return $this->hasMany('App\Models\Warehouse\Stock');
+    }
 }

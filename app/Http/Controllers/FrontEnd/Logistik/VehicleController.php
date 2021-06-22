@@ -17,7 +17,6 @@ class VehicleController extends Controller
     public function index()
     {
         $data = Vehicle::all();
-
         return view('pages.logistik.vehicle.index', [
             'title' => 'Vehicle',
             'data' => $data
@@ -31,21 +30,31 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        // $vehicle = $id && Vehicle::find($id);
+        $data = Vehicle::get();
         return view('pages.logistik.vehicle.create', [
-            'title' => 'Tambah Vehicle'
+            'title' => 'Vehicle',
+            'data' => $data
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $req
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $res = Vehicle::create($req->all());
+        $request->validate([
+            'type' => ['required'],
+            'capacity' => ['required'],
+            'fuel_capacity' => ['required'],
+            'brand' => ['required'],
+            'status' => ['required']
+        ]);
+        $data = request()->all();
+        Vehicle::create($data);
+
         return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Ditambah.');
     }
 
@@ -57,10 +66,9 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        $data = Vehicle::find($id);
-
-        return view('pages.logistik.vehicle.create', [
-            'title' => 'Ubah Vehicle',
+        $data = Vehicle::findOrFail($id);
+        return view('pages.logistik.vehicle.show', [
+            'title' => 'Detail Vehicle',
             'data' => $data
         ]);
     }
@@ -73,7 +81,12 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Vehicle::findOrFail($id);
+
+        return view('pages.logistik.vehicle.edit', [
+            'title' => 'Edit  Vehicle',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -85,7 +98,19 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $vehicle = Vehicle::findOrFail($id);
+        $request->validate([
+            'type' => ['required'],
+            'capacity' => ['required'],
+            'fuel_capacity' => ['required'],
+            'brand' => ['required'],
+            'status' => ['required']
+        ]);
+        $data = request()->all();
+        $vehicle->update($data);
+
+        return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Di update.');
     }
 
     /**
@@ -96,7 +121,8 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        Vehicle::destroy($id);
-        return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Dihapus.');
+        $data = Vehicle::findOrFail($id);
+        $data->delete();
+        return redirect()->route('logistik.vehicle.index')->with('success', 'Vehicle Berhasil Di update.');
     }
 }

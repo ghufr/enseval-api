@@ -5,6 +5,10 @@ namespace App\Http\Controllers\FrontEnd\Warehouse;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse\Inbound;
+use App\Models\Warehouse\Warehouse;
+use App\Models\Logistics\Delivery;
+use App\Models\Product;
 
 class InboundController extends Controller
 {
@@ -15,8 +19,10 @@ class InboundController extends Controller
      */
     public function index()
     {
+        $data = Inbound::with('product', 'warehouse')->get();
         return view('pages.warehouse.inbound.index', [
-            'title' => 'Warehouse'
+            'title' => 'Warehouse',
+            'data' => $data
         ]);
     }
 
@@ -27,7 +33,13 @@ class InboundController extends Controller
      */
     public function create()
     {
-        //
+        $delivery = Delivery::get();
+        $product = Product::all();
+        return view('pages.warehouse.inbound.create', [
+            'title' => 'Warehouse',
+            'product' => $product,
+            'delivery' => $delivery,
+        ]);
     }
 
     /**
@@ -38,7 +50,15 @@ class InboundController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cost' => ['required'],
+            'product_id' => ['required'],
+        ]);
+
+        $Inbound = $request->all();
+        Inbound::create($Inbound);
+
+        return redirect()->route('warehouse.inbound.index')->with('success', 'Inbound Berhasil Ditambah.');
     }
 
     /**
@@ -49,7 +69,12 @@ class InboundController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Inbound::findOrFail($id);
+
+        return view('pages.warehouse.inbound.show', [
+            'title' => 'Detail Inbound',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -60,7 +85,16 @@ class InboundController extends Controller
      */
     public function edit($id)
     {
-        //
+        $delivery = Delivery::get();
+        $product = Product::all();
+        $data = Inbound::findOrFail($id);
+
+        return view('pages.warehouse.inbound.edit', [
+            'title' => 'Detail Inbound',
+            'data' => $data,
+            'product' => $product,
+            'delivery' => $delivery,
+        ]);
     }
 
     /**
@@ -72,7 +106,16 @@ class InboundController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Inbound = Inbound::findOrFail($id);
+        $request->validate([
+            'cost' => ['required'],
+            'product_id' => ['required'],
+            'warehouse_id' => ['required'],
+        ]);
+
+        $data = $request->all();
+        $Inbound->update($data);
+        return redirect()->route('warehouse.inbound.index')->with('success', 'Inbound Berhasil Di update');
     }
 
     /**
@@ -83,6 +126,8 @@ class InboundController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Inbound = Inbound::findOrFail($id);
+        $Inbound->delete();
+        return redirect()->route('warehouse.inbound.index')->with('success', 'Inbound Berhasil Di hapus');
     }
 }

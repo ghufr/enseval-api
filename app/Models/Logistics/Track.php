@@ -27,17 +27,10 @@ class Track extends Model
 {
     use HasFactory;
     protected $table = "track";
-
-    protected $fillable = [
-        "temp",
-        "loc_lat",
-        "loc_lng",
-        "delivery_id",
-        "status"
-    ];
+    protected $guarded = [];
 
     public function delivery()
     {
-        return $this->belongsToMany(Delivery::class);
+        return $this->belongsTo('App\Models\Logistics\Delivery');
     }
 }

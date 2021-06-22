@@ -13,35 +13,33 @@ class Delivery extends Model
     protected $table = "delivery";
     protected $guarded = [];
 
-    protected $fillable = [
-        "delivery_type",
-        "pickup_location",
-        "destination_location",
-        "date_pickup",
-        "fuel_consumption",
-        "cost",
-        "driver_id",
-        // "customer_id",
-        "vehicle_id"
-    ];
-
     public function driver()
     {
-        return $this->belongsTo(Driver::class);
+        return $this->belongsTo('App\Models\Driver');
     }
 
-    // public function customer()
-    // {
-    //     return $this->belongsToMany(Customer::class);
-    // }
-
-    // public function product()
-    // {
-    //     return $this->belongsToMany(Product::class);
-    // }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 
     public function vehicle()
     {
-        return $this->belongsTo(Vehicle::class);
+        return $this->belongsTo('App\Models\Vehicle');
+    }
+
+    public function track()
+    {
+        return $this->hasMany('App\Models\Logistics\Track');
+    }
+    public function inbound()
+    {
+        return $this->hasMany('App\Models\Warehouse\Inbound');
+    }
+
+
+    public function outbound()
+    {
+        return $this->hasMany('App\Models\Warehouse\Outbound');
     }
 }
